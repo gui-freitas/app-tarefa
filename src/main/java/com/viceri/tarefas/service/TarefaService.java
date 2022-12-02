@@ -9,6 +9,7 @@ import com.viceri.tarefas.entity.dto.TarefaDTO;
 import com.viceri.tarefas.entity.enums.Prioridade;
 import com.viceri.tarefas.entity.enums.Status;
 import com.viceri.tarefas.repository.TarefaRepository;
+import com.viceri.tarefas.service.exceptions.ObjectNotFoundException;
 
 @Service
 public class TarefaService {
@@ -40,13 +41,13 @@ public class TarefaService {
 	public Tarefa buscarTarefaPorId(Integer id){
 		Tarefa resultado = tarefaRepository.buscarTarefaPorId(id);
 		if (resultado == null) {
-			return null;
+			throw new ObjectNotFoundException("Tarefa não encontrada. Id: " + id);
 		}
 		return resultado;
 	}
 
 	public void atualizarTarefa(TarefaDTO tarefa, Integer id) {
+		buscarTarefaPorId(id);
 		tarefaRepository.atualizarTarefa(converterDeDTO(tarefa), id);
-
 	}
 }
