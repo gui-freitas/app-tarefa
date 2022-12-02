@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.viceri.tarefas.entity.Tarefa;
+import com.viceri.tarefas.entity.dto.NovaTarefaDTO;
 import com.viceri.tarefas.entity.dto.TarefaDTO;
 import com.viceri.tarefas.service.TarefaService;
 import com.viceri.tarefas.service.exceptions.ObjectNotFoundException;
@@ -26,12 +26,12 @@ public class TarefaController {
 	private TarefaService tarefaService;
 
 	@GetMapping
-	public ResponseEntity<Page<Tarefa>> listarTarefas() {
+	public ResponseEntity<Page<TarefaDTO>> listarTarefas() {
 		return ResponseEntity.ok().body(tarefaService.listarTarefasPorStatus());
 	}
 
 	@PostMapping
-	public ResponseEntity<String> inserirTarefa(@RequestBody TarefaDTO tarefa) {
+	public ResponseEntity<String> inserirTarefa(@RequestBody NovaTarefaDTO tarefa) {
 		try {
 			tarefaService.inserirTarefa(tarefa);
 			return new ResponseEntity<>("Tarefa criada com sucesso!", HttpStatus.CREATED);
@@ -53,10 +53,10 @@ public class TarefaController {
 	}
 
 	  @PutMapping(value = "/{id}") 
-	  public ResponseEntity<String> atualizarTarefa(@RequestBody TarefaDTO tarefaDto, @PathVariable Integer id){ 
+	  public ResponseEntity<String> atualizarTarefa(@RequestBody NovaTarefaDTO tarefaDto, @PathVariable Integer id){ 
 		  try {
 			  tarefaService.atualizarTarefa(tarefaDto, id); 
-			  return new ResponseEntity<>("Tarefa atualizada com sucesso!", HttpStatus.NO_CONTENT); 
+			  return new ResponseEntity<>("Tarefa atualizada com sucesso!", HttpStatus.OK); 
 		  } catch (ObjectNotFoundException e) { 
 			  return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
 		  }catch (Exception e) {

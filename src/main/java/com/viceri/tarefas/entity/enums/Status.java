@@ -33,4 +33,13 @@ public enum Status {
 		}
 		throw new IllegalArgumentException("Status invalido: " + descricao);
 	}
+	
+	public static Status toEnum(int codigo) {
+		for (Status status : Status.values()){
+			if (codigo == status.getCodigo()) {
+				return status;
+			}
+		}
+		throw new IllegalArgumentException("Status invalido: " + codigo);
+	}
 };

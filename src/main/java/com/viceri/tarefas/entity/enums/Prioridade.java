@@ -33,4 +33,13 @@ public enum Prioridade {
 		}
 		throw new IllegalArgumentException("Prioridade invalida: " + descricao);
 	}
+	
+	public static Prioridade toEnum(int codigo) {
+		for (Prioridade prioridade : Prioridade.values()){
+			if (codigo == prioridade.getCodigo()) {
+				return prioridade;
+			}
+		}
+		throw new IllegalArgumentException("Prioridade invalida: " + codigo);
+	}
 };

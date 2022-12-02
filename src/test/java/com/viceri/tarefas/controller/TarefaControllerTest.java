@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.viceri.tarefas.entity.dto.TarefaDTO;
+import com.viceri.tarefas.entity.dto.NovaTarefaDTO;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -31,7 +31,7 @@ public class TarefaControllerTest {
 	
 	@Test
 	public void testInserirTarefa() throws Exception {
-		TarefaDTO tarefa01 = new TarefaDTO("Estudar", "Media", "Concluida");
+		NovaTarefaDTO tarefa01 = new NovaTarefaDTO("Estudar", "Media", "Concluida");
 		
 		mockMvc.perform(post(URL)
 				.contentType(MediaType.APPLICATION_JSON)
@@ -54,7 +54,7 @@ public class TarefaControllerTest {
 	public void testAtualizarTarefa() throws Exception {
 		testInserirTarefa();
 		int id = 2;
-		TarefaDTO tarefa02 = new TarefaDTO("Trabalhar", "Alta", "Pendente");
+		NovaTarefaDTO tarefa02 = new NovaTarefaDTO("Trabalhar", "Alta", "Pendente");
 		
 		mockMvc.perform(put(URL + "/" + id)
 				.contentType(MediaType.APPLICATION_JSON)

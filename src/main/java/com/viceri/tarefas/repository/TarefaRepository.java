@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -18,21 +16,19 @@ public class TarefaRepository {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
-	public Page<Tarefa> listarTarefasPorStatus(Status pendente) {
+	public List<Tarefa> listarTarefasPorStatus(Status pendente) {
 		String sql = """
 				SELECT * 
 				FROM tarefa 
 				WHERE status = ?
 				""";
 		
-		List<Tarefa> lista = jdbcTemplate.query(
+		return jdbcTemplate.query(
 				sql, (rs, rowNum) -> new Tarefa(rs.getInt("id"), 
 						rs.getString("descricao"), 
 						rs.getInt("prioridade"), 
 						rs.getInt("status")),
 				pendente.getCodigo());
-		
-		return new PageImpl<Tarefa>(lista);
 	}
 
 	public int inserirTarefa(Tarefa tarefa) {
