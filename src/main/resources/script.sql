@@ -6,6 +6,3 @@ CREATE TABLE tarefa (
 	primary key(id)
 );
 
-insert into tarefa (descricao, prioridade, status) values ('Desenvolver', 1, 1);
-insert into tarefa (descricao, prioridade) values ('Desenvolver testes', 1);
-insert into tarefa (descricao, prioridade, status) values ('Desenvolver sql', 2, 2);
